@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% extends 'index.html' %}
+    {% block title %}{{ post.title }}{% endblock %}
+    {% block content %}
+    <h1>{{ post.title }}</h1>
+    <small>By: {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.post_date }}</small><br/>
+    <hr>
+    <br/>
+    Directed By: {{ post.director }}
+    <br/>
+
+    Year Released: {{ post.year }}
+    <br/>
+    <br/>
+
+    Score: {{ post.rating }}
+    <br/>
+    <br/>
+    Review: {{ post.body | safe }}
+
+    <br/><br/>
+    {% if user.is_authenticated %}
+        <a href="{% url 'update_review' post.pk %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'delete_review' post.pk %}" class="btn btn-primary">Delete</a>
+    {% else %}
+
+    {% endif %}
+
+<br/><br/>
+    <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+    {% endblock %}
+</body>
+</html>
