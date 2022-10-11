@@ -12,7 +12,7 @@
     {% block title %}Delete Review{% endblock %}
     {% block content %}
 
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user.id == post.author.id %}
     </br>
     </br>
         <h1>Delete Review</h1>
@@ -33,7 +33,7 @@
 
     </div>
     {% else %}
-        Only admins are permitted to delete reviews.
+        Only admins or authors are permitted to delete reviews.
     {% endif %}
     {% endblock %} 
 

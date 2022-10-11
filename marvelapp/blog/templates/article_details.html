@@ -9,31 +9,36 @@
     {% extends 'index.html' %}
     {% block title %}{{ post.title }}{% endblock %}
     {% block content %}
+
     <h1>{{ post.title }}</h1>
-    <small>By: {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.post_date }}</small><br/>
+
+    {% if post.header_image %}
+    <img src="{{ post.header_image.url }}" class="card-img-left" alt="Thor - Imax Poster">
+    {% endif %}
     <hr>
+    Reviewed By: {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.post_date }}</small><br/>
+    <br/>
+    Score: {{ post.rating }}
+    <br/>
+    Category: {{ post.category }}
     <br/>
     Directed By: {{ post.director }}
     <br/>
-
     Year Released: {{ post.year }}
     <br/>
+    Review: 
+    <br/>{{ post.body | safe }}
     <br/>
-
-    Score: {{ post.rating }}
-    <br/>
-    <br/>
-    Review: {{ post.body | safe }}
-
-    <br/><br/>
     {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
         <a href="{% url 'update_review' post.pk %}" class="btn btn-primary">Update</a>
         <a href="{% url 'delete_review' post.pk %}" class="btn btn-primary">Delete</a>
-    {% else %}
+        {% endif %}
+        {% else %}
 
     {% endif %}
 
-<br/><br/>
+<br/>
     <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
     {% endblock %}
 </body>

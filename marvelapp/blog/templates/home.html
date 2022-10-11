@@ -4,23 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .card {
+        flex-direction: row;
+      }
+      .card img {
+        width: 30%;
+      }
+    </style>
 </head>
 <body>
 
     {% extends 'index.html' %}
     {% block content %}
 
-    <h1>Post</h1>
-    <ul>
-    {% for post in object_list %}
+
+
+        {% for post in object_list %}
+        <div class="card d-flex flex-row w-75">
+          {% if post.header_image %}
+          <img src="{{ post.header_image.url }}" class="rounded">
+          {% else %}
+          <img src="/media/images/249200c431fe811110761709b303fcaf.jpg" class="rounded">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">
+              Category: <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a><br/>
+              Directed By: {{ post.director }}<br/>
+              Released: {{ post.year }}<br/>
+              Reviewed By: {{ post.author }}<br/>
+              Personal Rating: {{ post.rating }}<br/>
+            </p>
+            <a href="{% url 'article-detail' post.pk %}" class="btn btn-primary">View Review</a>
+          </div>
+        </div>
+        <br/>
         
-        <li><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - {{ post.rating }} <br/>
-                    By: {{ post.author.first_name }} {{ post.author.last_name }}<br/>
-        </li>
-
-    {% endfor %}
-    </ul>
-
+        {% endfor %}
     {% endblock %} 
 
 </body>
