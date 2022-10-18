@@ -35,9 +35,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     #ForeignKey is used to relate one User to all of the posts created by said User (One to many) and the on_delete is used to to the database to drop all posts created by User
     body = models.TextField()
-    year = models.PositiveSmallIntegerField()
+    year = models.IntegerField()
     #need to add min of 2000 and max of 2030 preferably as drop down menu
-    rating = models.PositiveSmallIntegerField()
+    rating = models.IntegerField()
     # rating = models.CharField(max_length=10, choices=RATING_CHOICES, default='')
     #need to add min of 0 and max of 10
     director = models.CharField(max_length=255)
