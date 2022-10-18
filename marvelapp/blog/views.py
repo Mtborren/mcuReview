@@ -1,4 +1,5 @@
 from re import L
+from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Category
@@ -72,6 +73,11 @@ class UpdateReviewView(UpdateView):
         context = super(UpdateReviewView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
         return context
+
+    def get(self, *args, **kwargs):
+        if self.get_object().author != self.request.user:
+            raise Http404
+        return UpdateView.get(self, request, **kwargs)
 
 class DeleteReviewView(DeleteView):
     model = Post
