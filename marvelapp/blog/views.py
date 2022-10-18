@@ -74,10 +74,10 @@ class UpdateReviewView(UpdateView):
         context["cat_menu"] = cat_menu
         return context
 
-    def get(self, *args, **kwargs):
-        if self.get_object().author != self.request.user:
-            raise Http404
-        return UpdateView.get(self, request, **kwargs)
+    # def get(self, *args, **kwargs):
+    #     if self.get_object().author != self.request.user:
+    #         raise Http404
+    #     return UpdateView.get(self, request, **kwargs)
 
 class DeleteReviewView(DeleteView):
     model = Post
