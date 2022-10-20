@@ -16,19 +16,35 @@
     <img src="{{ post.header_image.url }}" class="card-img-left" alt="Thor - Imax Poster">
     {% endif %}
     <hr>
-    Reviewed By: {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.post_date }}</small><br/>
+    Reviewed By: {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.post_date }}</small>
     <br/>
-    Score: {{ post.rating }}
     <br/>
-    Category: {{ post.category }}
+    <table class="table">
+        <tbody>
+        <tr></tr>
+        <th scope="row">Score:</th> 
+        <td>{{ post.rating }}</td>
+        </tr>
+        <tr>
+        <th scope="row">Category:</th> 
+        <td>{{ post.category }}</td>
+        </tr>
+        <tr>
+        <th scope="row">Directed By:</th> 
+        <td>{{ post.director }}</td>
+        </tr>
+        <tr>
+        <th scope="row">Year Released:</th> 
+        <td>{{ post.year }}</td>
+        </tr>
+        <tr>
+        <th scope="row">Review:</th> 
+        <td>{{ post.body | safe }}</td>
+        </tr>
+        </tbody>
+    </table>
     <br/>
-    Directed By: {{ post.director }}
-    <br/>
-    Year Released: {{ post.year }}
-    <br/>
-    Review: 
-    <br/>{{ post.body | safe }}
-    <br/>
+    
     {% if user.is_authenticated %}
         {% if user.id == post.author.id %}
         <a href="{% url 'update_review' post.pk %}" class="btn btn-primary">Update</a>
@@ -37,7 +53,7 @@
         {% else %}
 
     {% endif %}
-
+    <br/>
 <br/>
     <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
     {% endblock %}
