@@ -2,16 +2,40 @@ from ctypes import cast
 from re import L
 from django.http import Http404
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .models import Post, Category, Featured
 from .forms import PostForm, EditForm
 from django.urls import reverse_lazy
 
 
 
-def CategoryView(request, cats):
-    category_posts = Post.objects.filter(category=cats.replace('-', ' '))
-    return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
+# def CategoryView(request, cats, self, *args, **kwargs):
+#     category_posts = Post.objects.filter(category=cats.replace('-', ' '))
+#     cat_menu = Category.objects.all()
+#     feat_menu = Featured.objects.all()
+#     context = super(CategoryView, self).get_context_data(*args, **kwargs)
+#     context["cat_menu"] = cat_menu
+#     context["feat_menu"] = feat_menu
+#     return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
+
+
+
+
+class CategoryView(TemplateView):
+    model = Post
+    template_name = 'categories.html'
+    ordering = ['-post_date']
+
+    def get_context_data(self, cats, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        feat_menu = Featured.objects.all()
+        context = super(CategoryView, self).get_context_data(*args, **kwargs)
+        category_posts = Post.objects.filter(category=cats.replace('-', ' '))
+        context["cat_menu"] = cat_menu
+        context["feat_menu"] = feat_menu
+        context.update({'cats':cats, 'category_posts':category_posts})
+        return context
+
 
 
 class HomeView(ListView):
@@ -26,7 +50,6 @@ class HomeView(ListView):
         context["cat_menu"] = cat_menu
         context["feat_menu"] = feat_menu
         return context
-
 
 
 class ArticleDetailView(DetailView):

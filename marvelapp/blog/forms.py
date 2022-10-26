@@ -17,8 +17,6 @@ TODAYS_DATE = date.today()
 YEAR_CHOICES = [tuple([x,x]) for x in range(TODAYS_DATE.year, 2000, -1)]
 RATING_CHOICES = [tuple([x,x]) for x in range(10, 0, -1)] 
 
-TODAYS_DATE = date.today()
-
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post

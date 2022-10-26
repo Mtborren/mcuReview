@@ -10,6 +10,6 @@ urlpatterns = [
     path('add_category/', AddCategoryView.as_view(), name='add_category'),
     path('article/edit/<int:pk>', UpdateReviewView.as_view(), name="update_review"),
     path('article/<int:pk>/delete/', DeleteReviewView.as_view(), name="delete_review"),
-    path('category/<str:cats>/', CategoryView, name='category'),
+    path('category/<str:cats>/', CategoryView.as_view(), name='category'),
     
 ]  
