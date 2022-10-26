@@ -9,17 +9,6 @@ from django.urls import reverse_lazy
 
 
 
-# def CategoryView(request, cats, self, *args, **kwargs):
-#     category_posts = Post.objects.filter(category=cats.replace('-', ' '))
-#     cat_menu = Category.objects.all()
-#     feat_menu = Featured.objects.all()
-#     context = super(CategoryView, self).get_context_data(*args, **kwargs)
-#     context["cat_menu"] = cat_menu
-#     context["feat_menu"] = feat_menu
-#     return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
-
-
-
 
 class CategoryView(TemplateView):
     model = Post
