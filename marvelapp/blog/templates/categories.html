@@ -7,23 +7,53 @@
 </head>
 <body>
 
+
     {% extends 'index.html' %}
-    
+
     {% block content %}
 
-    {% if category_posts %}
-        <h1>{{ cats }}</h1>
-        <ul>
-            {% for post in category_posts %}
-            <li>
-                <a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a>
-            </li>
-            {% endfor %}
-        </ul>
 
-    {% else %}
-        <h2>Sorry, this category doesn't exist.</h2>
-    {% endif %}
+        {% for post in category_posts %}
+            <div class="card d-flex flex-row w-75">
+                {% if post.header_image %}
+                <img src="{{ post.header_image.url }}" class="rounded" width="30%">
+                {% else %}
+                <img src="/media/images/249200c431fe811110761709b303fcaf.jpg" class="rounded" width="30%">
+                {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>{{ post.title }}</strong></h5>
+                        <hr>
+                        <div class="card-text">
+                        <div class="d-flex justify-content-around">
+                            <div class="d-flex flex-column">
+                            <strong class="p-2">Category:</strong>
+                            <strong class="p-2">Featuring:</strong>
+                            <strong class="p-2">Directed By:</strong>
+                            <strong class="p-2">Released:</strong>
+                            <strong class="p-2">Reviewed By:</strong>
+                            <strong class="p-2">Personal Rating:</strong>
+                            </div>
+                            <div class="d-flex flex-column">
+                            <a href="{% url 'category' post.category|slugify %}" class="text-capitalize p-2">{{ post.category }}</a>
+                            <span class="text-capitalize p-2">
+                                {{ post.featured }}
+                            </span>
+                            <span class="text-capitalize p-2">{{ post.director }}</span>
+                            <span class="text-capitalize p-2">{{ post.year }}</span>
+                            <span class="text-capitalize p-2">{{ post.author }}</span>
+                            <span class="text-capitalize p-2">{{ post.rating }}</span>
+                            </div>
+                        </div> 
+                <br>
+                <div class="d-flex flex-row justify-content-center">
+                    <a href="{% url 'article-detail' post.pk %}" class="btn btn-primary p-2">View Review</a>
+                </div>
+                </div>
+            </div>
+            </div>
+            <br>
+        {% endfor %}
+        
     {% endblock %}
 </body>
 </html>

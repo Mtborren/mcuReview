@@ -4,6 +4,7 @@ from django.views import generic
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from .forms import SignUpForm, EditProfileForm, PasswordChangingForm
+from blog.models import Post, Category, Featured
 # Create your views here.
 
 class PasswordsChangeView(PasswordChangeView):
@@ -25,6 +26,14 @@ class UserEditView(generic.UpdateView):
     form_class = EditProfileForm
     template_name = 'registration/edit_profile.html'
     success_url = reverse_lazy('home')
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        feat_menu = Featured.objects.all()
+        context = super(UserEditView, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        context["feat_menu"] = feat_menu
+        return context
     
     def get_object(self):
         return self.request.user

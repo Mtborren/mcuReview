@@ -1,10 +1,18 @@
+from ctypes import cast
 from re import L
 from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Category
+from .models import Post, Category, Featured
 from .forms import PostForm, EditForm
 from django.urls import reverse_lazy
+
+
+
+def CategoryView(request, cats):
+    category_posts = Post.objects.filter(category=cats.replace('-', ' '))
+    return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
+
 
 class HomeView(ListView):
     model = Post
@@ -13,15 +21,11 @@ class HomeView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
+        feat_menu = Featured.objects.all()
         context = super(HomeView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
+        context["feat_menu"] = feat_menu
         return context
-
-
-
-def CategoryView(request, cats):
-    category_posts = Post.objects.filter(category=cats.replace('-', ' '))
-    return render(request, 'categories.html', {'cats':cats.title().replace('-', ' '), 'category_posts':category_posts})
 
 
 
@@ -31,8 +35,10 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
+        feat_menu = Featured.objects.all()
         context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
+        context["feat_menu"] = feat_menu
         return context
 
 
@@ -44,8 +50,10 @@ class AddReviewView(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
+        feat_menu = Featured.objects.all()
         context = super(AddReviewView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
+        context["feat_menu"] = feat_menu
         return context
 
 
@@ -58,9 +66,13 @@ class AddCategoryView(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
+        feat_menu = Featured.objects.all()
         context = super(AddCategoryView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
+        context["feat_menu"] = feat_menu
         return context
+
+
 
 
 class UpdateReviewView(UpdateView):
@@ -70,9 +82,12 @@ class UpdateReviewView(UpdateView):
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
+        feat_menu = Featured.objects.all()
         context = super(UpdateReviewView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
+        context["feat_menu"] = feat_menu
         return context
+
 
     # def get(self, *args, **kwargs):
     #     if self.get_object().author != self.request.user:
@@ -86,6 +101,9 @@ class DeleteReviewView(DeleteView):
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
+        feat_menu = Featured.objects.all()
         context = super(DeleteReviewView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
+        context["feat_menu"] = feat_menu
         return context
+
