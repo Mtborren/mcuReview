@@ -27,7 +27,7 @@ class Category(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    bio = models.TextField()
+    # bio = models.TextField()
 
     def __str__(self):
         return str(self.user)
@@ -47,6 +47,7 @@ class Post(models.Model):
     post_date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255, default='Uncategorized')
     featured = models.CharField(max_length=255, default="Unfeatured")
+    # featured = models.ManyToManyField(Featured)
 
 
 
