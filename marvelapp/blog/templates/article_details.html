@@ -20,12 +20,15 @@
                 <b class="p-2">Category:</b>
                 <b class="p-2">Directed By:</b>
                 <b class="p-2">Year Released:</b>
+                <b class="p-2">Featured Heroes:</b>
             </div>
             <div class="d-flex flex-column p-2">
                 <span class="text-capitalize p-2">{{ post.rating }}</span>
-                <span class="text-capitalize p-2">{{ post.category }}</span>
+                <a href="{% url 'category' post.category|slugify %}" class="text-capitalize p-2">{{ post.category }}</a>
                 <span class="text-capitalize p-2">{{ post.director }}</span>
                 <span class="text-capitalize p-2">{{ post.year }}</span>
+                <span class="text-capitalize p-2">{{ post.featured }}</span>
+
             </div>
         </div>
         <div class="d-flex flex-column p-2">
