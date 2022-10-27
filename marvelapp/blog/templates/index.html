@@ -38,7 +38,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             {% for item in feat_menu %}
-              <a class="dropdown-item">{{ item }}</a>
+              <a class="dropdown-item" href="{% url 'featured' item|slugify %}">{{ item }}</a>
             {% endfor %}
           </div>
         </div>

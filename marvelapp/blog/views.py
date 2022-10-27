@@ -9,18 +9,6 @@ from django.urls import reverse_lazy
 
 
 
-# def CategoryView(request, cats, self, *args, **kwargs):
-#     category_posts = Post.objects.filter(category=cats.replace('-', ' '))
-#     cat_menu = Category.objects.all()
-#     feat_menu = Featured.objects.all()
-#     context = super(CategoryView, self).get_context_data(*args, **kwargs)
-#     context["cat_menu"] = cat_menu
-#     context["feat_menu"] = feat_menu
-#     return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
-
-
-
-
 class CategoryView(TemplateView):
     model = Post
     template_name = 'categories.html'
@@ -36,6 +24,21 @@ class CategoryView(TemplateView):
         context.update({'cats':cats, 'category_posts':category_posts})
         return context
 
+
+class HeroView(TemplateView):
+    model = Post
+    template_name = 'featured_heroes.html'
+    ordering = ['-post_date']
+
+    def get_context_data(self, hero, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        feat_menu = Featured.objects.all()
+        context = super(HeroView, self).get_context_data(*args, **kwargs)
+        hero_posts = Post.objects.filter(featured=hero.replace('-', ' '))
+        context["cat_menu"] = cat_menu
+        context["feat_menu"] = feat_menu
+        context.update({'hero':hero, 'hero_posts':hero_posts})
+        return context
 
 
 class HomeView(ListView):

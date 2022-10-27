@@ -2,41 +2,44 @@
     {% block title %}{{ post.title }}{% endblock %}
     {% block content %}
 
-    <h1>{{ post.title }}</h1>
+    <div class="d-flex flex-row align-items-end justify-content-between">
+        <h1 class="p-2">{{ post.title }}</h1>
+        <span class="p-2">{{ user.username }}</span>
+    </div>
 
     {% if post.header_image %}
     <img src="{{ post.header_image.url }}" class="card-img-left" alt="Thor - Imax Poster">
     {% endif %}
     <hr>
-    Reviewed By: {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.post_date }}</small>
     <br/>
     <br/>
-    <table class="table">
-        <tbody>
-        <tr></tr>
-        <th scope="row">Score:</th> 
-        <td>{{ post.rating }}</td>
-        </tr>
-        <tr>
-        <th scope="row">Category:</th> 
-        <td>{{ post.category }}</td>
-        </tr>
-        <tr>
-        <th scope="row">Directed By:</th> 
-        <td>{{ post.director }}</td>
-        </tr>
-        <tr>
-        <th scope="row">Year Released:</th> 
-        <td>{{ post.year }}</td>
-        </tr>
-        <tr>
-        <th scope="row">Review:</th> 
-        <td>{{ post.body | safe }}</td>
-        </tr>
-        </tbody>
-    </table>
-    <br/>
+
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-column p-2">
+                <b class="p-2">Score:</b>
+                <b class="p-2">Category:</b>
+                <b class="p-2">Directed By:</b>
+                <b class="p-2">Year Released:</b>
+                <b class="p-2">Featured Heroes:</b>
+            </div>
+            <div class="d-flex flex-column p-2">
+                <span class="text-capitalize p-2">{{ post.rating }}</span>
+                <a href="{% url 'category' post.category|slugify %}" class="text-capitalize p-2">{{ post.category }}</a>
+                <span class="text-capitalize p-2">{{ post.director }}</span>
+                <span class="text-capitalize p-2">{{ post.year }}</span>
+                <span class="text-capitalize p-2">{{ post.featured }}</span>
+
+            </div>
+        </div>
+        <div class="d-flex flex-column p-2">
+            <b class="p-2">Review:</b>
+            <span class="p-2">{{ post.body | safe }}</span>
+        </div>
+
+
     
+    <br/>
+
     {% if user.is_authenticated %}
         {% if user.id == post.author.id %}
         <a href="{% url 'update_review' post.pk %}" class="btn btn-primary">Update</a>
