@@ -5,6 +5,16 @@ from django.urls import reverse
 
 # Create your models here.
 
+class Featured(models.Model):
+    name = models.CharField(max_length=255) 
+
+    def __str__(self):
+        return self.name.title()
+
+    def get_absolute_url(self):
+        return reverse('home')
+
+
 class Category(models.Model):
     name = models.CharField(max_length=255) 
 
@@ -13,18 +23,6 @@ class Category(models.Model):
     
     def get_absolute_url(self):
         return reverse('home')
-
-
-
-class Featured(models.Model):
-    name = models.CharField(max_length=255) 
-
-    def __str__(self):
-        return self.name.title()
-        
-    def get_absolute_url(self):
-        return reverse('home')
-
 
 
 class Profile(models.Model):
@@ -62,7 +60,6 @@ class Post(models.Model):
 
 # class Hero(models.Model):
 #     name = models.CharField(max_length=255)
-
 
 
 # class Movie(models.Model):
