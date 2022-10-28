@@ -25,7 +25,7 @@ TODAYS_DATE = date.today()
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["author", "title", "header_image", "category", "featured", "heroes", "year", "director", "body", "rating"]
+        fields = ["author", "title", "header_image", "category", "featured", "year", "director", "body", "rating"]
 
 
         widgets = {
@@ -35,7 +35,7 @@ class PostForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(choices=choices, attrs={'class': 'form-control'}),
             'featured': forms.CheckboxSelectMultiple(choices=featured_choices, attrs={'class': ''}),
-            'heroes': forms.ModelMultipleChoiceField(queryset=Featured.objects.all(), to_field_name="name"),
+            # 'heroes': forms.ModelMultipleChoiceField(queryset=Featured.objects.all(), to_field_name="name"),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
             'year': forms.Select(choices=YEAR_CHOICES, attrs={'class': 'form-control'}),
             'rating': forms.Select(choices=RATING_CHOICES, attrs={'class': 'form-control'}),
