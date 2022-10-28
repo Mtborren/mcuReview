@@ -47,7 +47,7 @@ class Post(models.Model):
     post_date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255, default='Uncategorized')
     featured = models.CharField(max_length=255, default="Unfeatured")
-    # featured = models.ManyToManyField(Featured)
+    heroes = models.ManyToManyField(Featured)
 
 
 
