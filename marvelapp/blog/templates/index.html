@@ -28,6 +28,7 @@
             {% for item in cat_menu %}
               <a class="dropdown-item" href="{% url 'category' item|slugify %}">{{ item }}</a>
             {% endfor %}
+
           </div>
         </div>
       </div>
@@ -40,6 +41,7 @@
             {% for item in feat_menu %}
               <a class="dropdown-item" href="{% url 'featured' item|slugify %}">{{ item }}</a>
             {% endfor %}
+
           </div>
         </div>
       </div>

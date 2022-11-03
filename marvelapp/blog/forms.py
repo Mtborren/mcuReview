@@ -1,6 +1,7 @@
 from django import forms
-from .models import Post, Featured, Category
 from datetime import date
+from .models import Post, Featured, Category
+
 
 
 choices = Category.objects.all().values_list('name', 'name')
@@ -16,11 +17,6 @@ for item in featured_choices:
 
 
 
-TODAYS_DATE = date.today()
-YEAR_CHOICES = [tuple([x,x]) for x in range(TODAYS_DATE.year, 2000, -1)]
-RATING_CHOICES = [tuple([x,x]) for x in range(10, 0, -1)] 
-
-TODAYS_DATE = date.today()
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -37,8 +33,8 @@ class PostForm(forms.ModelForm):
             'featured': forms.CheckboxSelectMultiple(choices=featured_choices, attrs={'class': ''}),
             # 'heroes': forms.ModelMultipleChoiceField(queryset=Featured.objects.all(), to_field_name="name"),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
-            'year': forms.Select(choices=YEAR_CHOICES, attrs={'class': 'form-control'}),
-            'rating': forms.Select(choices=RATING_CHOICES, attrs={'class': 'form-control'}),
+            'year': forms.Select(choices=[tuple([x,x]) for x in range(date.today().year, 2000, -1)], attrs={'class': 'form-control'}),
+            'rating': forms.Select(choices=[tuple([x,x]) for x in range(10, 0, -1)], attrs={'class': 'form-control'}),
             'director': forms.TextInput(attrs={'class': 'form-control'}),
 
         }
@@ -57,8 +53,8 @@ class EditForm(forms.ModelForm):
             'category': forms.Select(choices=choices, attrs={'class': 'form-control'}),
             'featured': forms.CheckboxSelectMultiple(choices=featured_choices, attrs={'type':'checkbox', 'class': ''}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
-            'year': forms.Select(choices=YEAR_CHOICES, attrs={'class': 'form-control'}),
-            'rating': forms.Select(choices=RATING_CHOICES, attrs={'class': 'form-control'}),
+            'year': forms.Select(choices=[tuple([x,x]) for x in range(date.today().year, 2000, -1)], attrs={'class': 'form-control'}),
+            'rating': forms.Select(choices=[tuple([x,x]) for x in range(10, 0, -1)], attrs={'class': 'form-control'}),
             'director': forms.TextInput(attrs={'class': 'form-control'}),
 
         }
