@@ -15,7 +15,7 @@
                 <div class="d-flex justify-content-around">
                   <div class="d-flex flex-column">
                     <b class="p-2">Category:</b>
-                    <b class="p-2">Featuring:</b>
+                    <b class="p-2">Lead Hero:</b>
                     <b class="p-2">Directed By:</b>
                     <b class="p-2">Released:</b>
                     <b class="p-2">Reviewed By:</b>
@@ -23,8 +23,7 @@
                   </div>
                   <div class="d-flex flex-column">
                     <a href="{% url 'category' post.category|slugify %}" class="text-capitalize p-2">{{ post.category }}</a>
-                    <span class="text-capitalize p-2">
-                      {{ post.featured }}</span>
+                    <a href="{% url 'featured' post.featured|slugify %}" class="text-capitalize p-2">{{ post.featured }}</a>
                     <span class="text-capitalize p-2">{{ post.director }}</span>
                     <span class="text-capitalize p-2">{{ post.year }}</span>
                     <span class="text-capitalize p-2">{{ post.author }}</span>

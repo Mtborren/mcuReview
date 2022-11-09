@@ -15,6 +15,18 @@ class Featured(models.Model):
         return reverse('home')
 
 
+
+class Hero(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name.title()
+
+    def get_absolute_url(self):
+        return reverse('home')
+
+
+
 class Category(models.Model):
     name = models.CharField(max_length=255) 
 
@@ -23,6 +35,7 @@ class Category(models.Model):
     
     def get_absolute_url(self):
         return reverse('home')
+
 
 
 class Profile(models.Model):
@@ -46,10 +59,8 @@ class Post(models.Model):
     director = models.CharField(max_length=255)
     post_date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255, default='Uncategorized')
-    featured = models.CharField(max_length=255, default="Unfeatured")
-    heroes = models.ManyToManyField(Featured)
-
-
+    featured = models.CharField(max_length=255)
+    heroes = models.CharField(max_length=255, blank=True, default='No additional heroes')
 
     def __str__(self):
         return self.title + ' | ' + str(self.author)
