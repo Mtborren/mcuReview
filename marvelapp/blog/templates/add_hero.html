@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% block title %}Add A New Hero To The MCU{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+</br>
+</br>
+<h1>Add Hero</h1>
+</br>
+</br>
+</br>
+</br>
+<div>
+<div class ="form-group">
+    <form method="POST">
+            
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn btn-primary">Add</button>
+</div>
+</div>
+{% else %}
+    Only admins are permitted to create new Heroes.
+{% endif %}
+{% endblock %} 
