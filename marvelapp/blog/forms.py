@@ -1,8 +1,25 @@
 from django import forms
-from .models import Post, Featured, Category
 from datetime import date
+from .models import Post, Featured, Category
 
 
+
+<<<<<<< HEAD
+=======
+choices = Category.objects.all().values_list('name', 'name')
+choice_list = []
+for item in choices:
+    choice_list.append(item)
+
+
+featured_choices = Featured.objects.all().values_list('name', 'name')
+featured_list = []
+for item in featured_choices:
+    featured_list.append(item)
+
+
+
+>>>>>>> main
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -20,7 +37,11 @@ class PostForm(forms.ModelForm):
             'heroes': forms.CheckboxSelectMultiple(choices=Featured.objects.all().values_list('name', 'name'), attrs={'type':'checkbox', 'class': 'form-check text-capitalize'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
             'year': forms.Select(choices=[tuple([x,x]) for x in range(date.today().year, 2000, -1)], attrs={'class': 'form-control'}),
+<<<<<<< HEAD
             'rating': forms.Select(choices=[tuple([x,x]) for x in range(10, 0, -1)] , attrs={'class': 'form-control'}),
+=======
+            'rating': forms.Select(choices=[tuple([x,x]) for x in range(10, 0, -1)], attrs={'class': 'form-control'}),
+>>>>>>> main
             'director': forms.TextInput(attrs={'class': 'form-control'}),
 
         }
@@ -41,7 +62,11 @@ class EditForm(forms.ModelForm):
             'heroes': forms.CheckboxSelectMultiple(choices=Featured.objects.all().values_list('name', 'name'), attrs={'type':'checkbox', 'class': 'text-capitalize'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
             'year': forms.Select(choices=[tuple([x,x]) for x in range(date.today().year, 2000, -1)], attrs={'class': 'form-control'}),
+<<<<<<< HEAD
             'rating': forms.Select(choices=[tuple([x,x]) for x in range(10, 0, -1)] , attrs={'class': 'form-control'}),
+=======
+            'rating': forms.Select(choices=[tuple([x,x]) for x in range(10, 0, -1)], attrs={'class': 'form-control'}),
+>>>>>>> main
             'director': forms.TextInput(attrs={'class': 'form-control'}),
 
         }
