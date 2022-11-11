@@ -38,9 +38,9 @@
         <div class="d-inline-flex flex-column justify-content-around p-2">
             <span class="text-capitalize p-2">{{ post.rating }}</span>
             <a href="{% url 'category' post.category|slugify %}" class="text-capitalize p-2">{{ post.category }}</a>
+            <a href="{% url 'featured' post.featured|slugify %}" class="text-capitalize p-2">{{ post.featured }}</a>
             <span class="text-capitalize p-2">{{ post.director }}</span>
             <span class="text-capitalize p-2">{{ post.year }}</span>
-            <span class="text-capitalize p-2">{{ post.featured }}</span>
         </div>
 
     </div>
@@ -51,7 +51,7 @@
         <b class="p-2">Also Featuring: </b>
         {% if heroes %}
             {% for item in heroes %}
-            <span class="p-2">{{ item.name|title }}</span>
+            <a href="{% url 'featured' item.name|slugify %}" class="text-capitalize p-2">{{ item.name|title }}</a>
             {% endfor %}
         {% else %}
         <span class="p-2">No additional heroes featured.</span>
