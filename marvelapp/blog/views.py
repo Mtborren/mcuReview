@@ -1,7 +1,3 @@
-from ctypes import cast
-from re import L
-from django.http import Http404
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .models import Post, Category, Featured
 from .forms import PostForm, EditForm
@@ -63,6 +59,7 @@ class ArticleDetailView(DetailView):
         cat_menu = Category.objects.all()
         feat_menu = Featured.objects.all()
         context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
+        context["heroes"] = context["object"].heroes.all()
         context["cat_menu"] = cat_menu
         context["feat_menu"] = feat_menu
         return context

@@ -18,11 +18,11 @@
 
     <div class="d-flex justify-content-between">
 
-            {% if post.header_image %}
-                <img src="{{ post.header_image.url }}" class="" width="30%">
-            {% else %}
-                <img src="/media/images/249200c431fe811110761709b303fcaf.jpg" class="" width="30%">
-            {% endif %}
+        {% if post.header_image %}
+            <img src="{{ post.header_image.url }}" class="rounded" width="30%">
+        {% else %}
+            <img src="/media/images/249200c431fe811110761709b303fcaf.jpg" class="rounded" width="30%">
+        {% endif %}
 
         
 
@@ -49,7 +49,13 @@
     <hr>
     <div class="d-flex flex-column p-2">
         <b class="p-2">Also Featuring: </b>
-        <span>{{ post.heroes }}</span>
+        {% if heroes %}
+            {% for item in heroes %}
+            <span class="p-2">{{ item.name|title }}</span>
+            {% endfor %}
+        {% else %}
+        <span class="p-2">No additional heroes featured.</span>
+        {% endif %}
     </div>
 
 
