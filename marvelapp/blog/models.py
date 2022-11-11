@@ -60,7 +60,7 @@ class Post(models.Model):
     post_date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255, default='Uncategorized')
     featured = models.CharField(max_length=255)
-    heroes = models.CharField(max_length=255, blank=True, default='No additional heroes')
+    heroes = models.ManyToManyField(Featured, blank=True)
 
     def __str__(self):
         return self.title + ' | ' + str(self.author)
