@@ -27,9 +27,7 @@
                                 </div>
                                 <div class="d-flex flex-column">
                                 <a href="{% url 'category' post.category|slugify %}" class="text-capitalize p-2">{{ post.category }}</a>
-                                <span class="text-capitalize p-2">
-                                    {{ post.featured }}
-                                </span>
+                                <a href="{% url 'featured' post.featured|slugify %}" class="text-capitalize p-2">{{ post.featured }}</a>
                                 <span class="text-capitalize p-2">{{ post.director }}</span>
                                 <span class="text-capitalize p-2">{{ post.year }}</span>
                                 <span class="text-capitalize p-2">{{ post.author }}</span>

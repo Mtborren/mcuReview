@@ -25,7 +25,7 @@ class CategoryView(ListView):
     model = Post
     template_name = 'categories.html'
     ordering = ['-post_date']
-    paginate_by = 2
+    paginate_by = 1
 
     def get_queryset(self):
         context = super(CategoryView, self).get_queryset()
