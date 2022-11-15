@@ -1,39 +1,79 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from django.core.paginator import Paginator
 from .models import Post, Category, Featured
 from .forms import PostForm, EditForm
 from django.urls import reverse_lazy
 
 
 
-class CategoryView(TemplateView):
+# class CategoryView(TemplateView):
+#     model = Post
+#     template_name = 'categories.html'
+#     ordering = ['-post_date']
+
+#     def get_context_data(self, cats, *args, **kwargs):
+#         cat_menu = Category.objects.all()
+#         feat_menu = Featured.objects.all()
+#         context = super(CategoryView, self).get_context_data(*args, **kwargs)
+#         category_posts = Post.objects.filter(category=cats.replace('-', ' '))
+#         context["cat_menu"] = cat_menu
+#         context["feat_menu"] = feat_menu
+#         context.update({'cats':cats, 'category_posts':category_posts})
+#         return context
+
+class CategoryView(ListView):
     model = Post
     template_name = 'categories.html'
     ordering = ['-post_date']
+    paginate_by = 2
 
-    def get_context_data(self, cats, *args, **kwargs):
+    def get_queryset(self):
+        context = super(CategoryView, self).get_queryset()
+        cats = self.kwargs['cats']
+        return context.filter(category=cats.replace('-', ' '))
+
+    def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
         feat_menu = Featured.objects.all()
         context = super(CategoryView, self).get_context_data(*args, **kwargs)
-        category_posts = Post.objects.filter(category=cats.replace('-', ' '))
-        context["cat_menu"] = cat_menu
-        context["feat_menu"] = feat_menu
-        context.update({'cats':cats, 'category_posts':category_posts})
+        cats = self.kwargs['cats']
+        context.update({'cat_menu':cat_menu, 'feat_menu':feat_menu, 'cats':cats})
         return context
 
 
-class HeroView(TemplateView):
+# class HeroView(TemplateView):
+#     model = Post
+#     template_name = 'featured_heroes.html'
+#     ordering = ['-post_date']
+
+#     def get_context_data(self, hero, *args, **kwargs):
+#         cat_menu = Category.objects.all()
+#         feat_menu = Featured.objects.all()
+#         context = super(HeroView, self).get_context_data(*args, **kwargs)
+#         hero_posts = Post.objects.filter(featured=hero.replace('-', ' '))
+#         context["cat_menu"] = cat_menu
+#         context["feat_menu"] = feat_menu
+#         context.update({'hero':hero, 'hero_posts':hero_posts})
+#         return context
+
+
+class HeroView(ListView):
     model = Post
     template_name = 'featured_heroes.html'
     ordering = ['-post_date']
+    paginate_by = 2
 
-    def get_context_data(self, hero, *args, **kwargs):
+    def get_queryset(self):
+        context = super(HeroView, self).get_queryset()
+        hero = self.kwargs['hero']
+        return context.filter(featured=hero.replace('-', ' '))
+
+    def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
         feat_menu = Featured.objects.all()
         context = super(HeroView, self).get_context_data(*args, **kwargs)
-        hero_posts = Post.objects.filter(featured=hero.replace('-', ' '))
-        context["cat_menu"] = cat_menu
-        context["feat_menu"] = feat_menu
-        context.update({'hero':hero, 'hero_posts':hero_posts})
+        hero = self.kwargs['hero']
+        context.update({'cat_menu':cat_menu, 'feat_menu':feat_menu, 'hero':hero})
         return context
 
 
@@ -41,7 +81,6 @@ class HomeView(ListView):
     model = Post
     template_name = 'home.html'
     ordering = ['-post_date']
-    # paginate_by = 1
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()

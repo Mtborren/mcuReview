@@ -3,9 +3,9 @@
     {% block content %}
 
 
-        {% if category_posts %}
+        {% if object_list %}
 
-            {% for post in category_posts %}
+            {% for post in object_list %}
                     <div class="card d-flex flex-row w-75">
                         {% if post.header_image %}
                         <img src="{{ post.header_image.url }}" class="rounded" width="30%">
@@ -46,6 +46,30 @@
                     <br>
             {% endfor %}
         
+            <div class="pagination d-flex justify-content-center">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; First</a>
+                        <span> | </span>
+                        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        <span> | </span>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+      
+                    <span> | </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <span> | </span>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+
+            
         {% else %}
         
             <h1>Sorry, there are no reviews in this category.</h1>
