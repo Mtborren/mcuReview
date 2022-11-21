@@ -72,7 +72,6 @@ class Post(models.Model):
 # class Hero(models.Model):
 #     name = models.CharField(max_length=255)
 
-
 # class Movie(models.Model):
 #     name = models.CharField(max_length=255)
 #     heroes = models.ManyToManyField(Hero)
