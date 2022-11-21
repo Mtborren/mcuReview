@@ -25,7 +25,7 @@ class CategoryView(ListView):
     model = Post
     template_name = 'categories.html'
     ordering = ['-post_date']
-    paginate_by = 1
+    paginate_by = 2
 
     def get_queryset(self):
         context = super(CategoryView, self).get_queryset()
@@ -61,7 +61,7 @@ class HeroView(ListView):
     model = Post
     template_name = 'featured_heroes.html'
     ordering = ['-post_date']
-    paginate_by = 2
+    # paginate_by = 1
 
     def get_queryset(self):
         context = super(HeroView, self).get_queryset()
@@ -72,8 +72,7 @@ class HeroView(ListView):
         cat_menu = Category.objects.all()
         feat_menu = Featured.objects.all()
         context = super(HeroView, self).get_context_data(*args, **kwargs)
-        hero = self.kwargs['hero']
-        context.update({'cat_menu':cat_menu, 'feat_menu':feat_menu, 'hero':hero})
+        context.update({'cat_menu':cat_menu, 'feat_menu':feat_menu})
         return context
 
 
