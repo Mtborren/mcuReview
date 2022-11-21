@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.core.paginator import Paginator
-from .models import Post, Category, Featured
+from .models import Post, Category, Featured, Hero
 from .forms import PostForm, EditForm
 from django.urls import reverse_lazy
 
@@ -71,6 +71,9 @@ class HeroView(ListView):
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
         feat_menu = Featured.objects.all()
+        hero_posts = Post.objects.all()
+
+
         context = super(HeroView, self).get_context_data(*args, **kwargs)
         context.update({'cat_menu':cat_menu, 'feat_menu':feat_menu})
         return context
